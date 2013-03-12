@@ -33,6 +33,7 @@ describe('maria generator', function () {
       'package.json',
       'component.json',
       'app/index.html',
+      'app/scripts/namespace.js',
       'app/404.html',
       'app/favicon.ico',
       'app/robots.txt',

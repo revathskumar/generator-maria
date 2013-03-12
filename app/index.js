@@ -70,3 +70,10 @@ MariaGenerator.prototype.gruntfile = function gruntfile() {
 MariaGenerator.prototype.mainStylesheet = function mainStylesheet() {
   this.write('app/styles/main.css', 'body {\n    background: #fafafa;\n}\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}');
 };
+
+MariaGenerator.prototype.namespaceJs = function namespaceJs() {
+  var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
+  var ext = this.options.coffee ? 'coffee' : 'js';
+  this.sourceRoot(path.join(__dirname, dirPath));
+  this.template('app.' + ext, 'app/scripts/namespace.' + ext);
+};
