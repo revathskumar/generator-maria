@@ -43,3 +43,15 @@ MariaGenerator.prototype.bower = function bower() {
   this.copy('bowerrc', '.bowerrc');
   this.copy('component.json', 'component.json');
 };
+
+MariaGenerator.prototype.packageJSON = function packageJSON() {
+  this.template('package.json');
+};
+
+MariaGenerator.prototype.indexFile = function indexFile() {
+  if (this.testFramework === 'jasmine') {
+    this.write('app/index.html', this.read('app/index.html').replace(/mocha/gi, 'Jasmine'), true);
+  } else {
+    this.template('app/index.html');
+  }
+};
