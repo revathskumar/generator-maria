@@ -13,7 +13,10 @@ describe('maria generator', function () {
       }
 
       this.app = helpers.createGenerator('maria:app', [
-        '../../app'
+        '../../app', [
+          helpers.createDummyGenerator(),
+          'mocha:app'
+        ]
       ]);
       done();
     }.bind(this));
@@ -27,6 +30,7 @@ describe('maria generator', function () {
       '.gitignore',
       '.gitattributes',
       '.bowerrc',
+      'package.json',
       'component.json',
       'app/index.html',
       'app/404.html',

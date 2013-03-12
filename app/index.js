@@ -9,6 +9,9 @@ module.exports = MariaGenerator;
 function MariaGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
+  this.testFramework = this.options['test-framework'] || 'mocha';
+  this.hookFor(this.testFramework, { as: 'app' });
+
   this.on('end', function () {
     console.log('\nI\'m all done. Just run ' + 'npm install &; bower install'.bold.yellow + ' to install the required dependencies.');
   });
