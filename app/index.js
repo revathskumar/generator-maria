@@ -24,10 +24,9 @@ MariaGenerator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app/styles');
   this.mkdir('app/images');
   this.template('app/404.html');
-  this.template('app/index.html');
   this.template('app/favicon.ico');
   this.template('app/robots.txt');
-  this.copy('htaccess', 'app/.htaccess');
+  this.copy('app/htaccess', 'app/.htaccess');
 };
 
 MariaGenerator.prototype.projectfiles = function projectfiles() {
