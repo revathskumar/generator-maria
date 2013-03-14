@@ -30,8 +30,8 @@ describe('maria generator', function () {
       '.gitignore',
       '.gitattributes',
       '.bowerrc',
-      'package.json',
-      'component.json',
+      ['package.json', /"name": "temp"/],
+      ['component.json', /"name": "temp"/],
       'app/index.html',
       'app/scripts/namespace.js',
       'app/404.html',
@@ -42,6 +42,29 @@ describe('maria generator', function () {
 
     this.app.run({}, function () {
       helpers.assertFiles(expected);
+      done();
+    });
+  });
+
+  it('creates expected files with --coffee', function (done) {
+    this.app.options.coffee = true;
+    this.app.run({}, function () {
+      helpers.assertFiles([
+        'app/scripts/namespace.coffee'
+      ]);
+      done();
+    });
+  });
+
+  it('creates maria controller', function (done) {
+    var controller = helpers.createGenerator('maria:controller', [
+      '../../controller'
+    ], ['Foo']);
+
+    controller.run({}, function () {
+      helpers.assertFiles([
+        ['app/scripts/controllers/FooController.js', /maria\.Controller\.subclass\(temp,\'FooController\'/]
+      ]);
       done();
     });
   });

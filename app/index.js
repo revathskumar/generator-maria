@@ -7,7 +7,7 @@ var yeoman = require('yeoman-generator');
 module.exports = MariaGenerator;
 
 function MariaGenerator(args, options, config) {
-  yeoman.generators.Base.apply(this, arguments);
+  yeoman.generators.NamedBase.apply(this, arguments);
 
   this.testFramework = this.options['test-framework'] || 'mocha';
   this.hookFor(this.testFramework, { as: 'app' });
