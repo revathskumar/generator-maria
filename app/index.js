@@ -53,7 +53,7 @@ MariaGenerator.prototype.packageJSON = function packageJSON() {
 
 MariaGenerator.prototype.indexFile = function indexFile() {
   if (this.testFramework === 'jasmine') {
-    this.write('app/index.html', this.read('app/index.html').replace(/mocha/gi, 'Jasmine'), true);
+    this.write('app/index.html', this.engine(this.read('app/index.html')).replace(/mocha/gi, 'Jasmine'));
   } else {
     this.template('app/index.html');
   }
@@ -61,7 +61,7 @@ MariaGenerator.prototype.indexFile = function indexFile() {
 
 MariaGenerator.prototype.gruntfile = function gruntfile() {
   if (this.testFramework === 'jasmine') {
-    this.write('Gruntfile.js', this.read('Gruntfile.js').replace(/mocha/g, 'jasmine'));
+    this.write('Gruntfile.js', this.engine(this.read('Gruntfile.js')).replace(/mocha/g, 'jasmine'));
   } else {
     this.template('Gruntfile.js');
   }
