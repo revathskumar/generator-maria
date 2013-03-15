@@ -7,7 +7,7 @@ var yeoman = require('yeoman-generator');
 module.exports = MariaGenerator;
 
 function MariaGenerator(args, options, config) {
-  yeoman.generators.NamedBase.apply(this, arguments);
+  yeoman.generators.Base.apply(this, arguments);
 
   this.testFramework = this.options['test-framework'] || 'mocha';
   this.hookFor(this.testFramework, { as: 'app' });
@@ -19,7 +19,7 @@ function MariaGenerator(args, options, config) {
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 }
 
-util.inherits(MariaGenerator, yeoman.generators.NamedBase);
+util.inherits(MariaGenerator, yeoman.generators.Base);
 
 MariaGenerator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app');
