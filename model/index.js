@@ -18,4 +18,5 @@ util.inherits(MariaGenerator, yeoman.generators.NamedBase);
 MariaGenerator.prototype.createControllerFiles = function createControllerFiles() {
   var ext = this.options.coffee ? 'coffee' : 'js';
   this.template('model.' + ext, path.join('app/scripts/models', this._.classify(this.name) + 'Model.' + ext));
+  this.template('collection.' + ext, path.join('app/scripts/models', this._.classify(this.name) + 'sModel.' + ext));
 };

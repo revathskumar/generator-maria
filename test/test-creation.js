@@ -63,7 +63,8 @@ describe('maria generator', function () {
 
     controller.run({}, function () {
       helpers.assertFiles([
-        ['app/scripts/controllers/FooController.js', /maria\.Controller\.subclass\(temp, \'FooController\'/]
+        ['app/scripts/controllers/FooController.js',
+          /maria\.Controller\.subclass\(temp, \'FooController\'/]
       ]);
       done();
     });
@@ -76,7 +77,10 @@ describe('maria generator', function () {
 
     model.run({}, function () {
       helpers.assertFiles([
-        ['app/scripts/models/FooModel.js', /maria\.Model\.subclass\(temp, \'FooModel\'/]
+        ['app/scripts/models/FooModel.js',
+          /maria\.Model\.subclass\(temp, \'FooModel\'/],
+        ['app/scripts/models/FoosModel.js',
+          /maria\.setModel\.subclass\(temp, \'FoosModel\'/]
       ]);
       done();
     });
