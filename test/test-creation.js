@@ -85,4 +85,18 @@ describe('maria generator', function () {
       done();
     });
   });
+
+  it('creates maria view', function (done) {
+    var view = helpers.createGenerator('maria:view', [
+      '../../view'
+    ], ['Foo']);
+
+    view.run({}, function () {
+      helpers.assertFiles([
+        ['app/scripts/views/FooView.js',
+          /maria\.ElementView\.subclass\(temp, \'FooView\'/]
+      ]);
+      done();
+    });
+  });
 });
