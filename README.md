@@ -1,13 +1,47 @@
-# Generator maria
-[![Build Status](https://secure.travis-ci.org/revathskumar/generator-maria.png?branch=master)](https://travis-ci.org/revathskumar/generator-maria)
+# MariaJS Generator [![Build Status](https://secure.travis-ci.org/revathskumar/generator-maria.png?branch=master)](https://travis-ci.org/revathskumar/generator-maria)
 
-A generator for Yeoman.
+A Maria generator for Yeoman that provides a functional boilerplate MariaJS app out of the box. You also get access to a number of sub-generators which can be used to easily create individual models, views and controllers.
 
-## Getting started
-- Make sure you have [yo](https://github.com/yeoman/yo) installed:
-    `npm install -g yo`
-- Install the generator **locally**: `npm install generator-maria`
-- Run: `yo maria`
+## Usage
+
+First make a new directory, and `cd` into it:
+```
+mkdir my-new-project && cd $_
+```
+
+Then install `generator-maria`:
+```
+npm install generator-maria
+```
+
+Run `yo maria`, optionally passing an app name:
+```
+yo maria
+```
+
+Finally, install npm and bower dependencies:
+```
+(npm install) & (bower install --dev ) &
+```
+
+## Generators
+
+Available generators:
+
+- maria:model
+- maria:view
+- maria:controller
+
+
+## Contribute
+
+See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
+
+When submitting an issue, please follow the [guidelines](https://github.com/yeoman/yeoman/blob/master/contributing.md#issue-submission). Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue.
+
+When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
+
+When submitting a new feature, add tests that cover the feature.
 
 ## License
-[MIT License](http://en.wikipedia.org/wiki/MIT_License)
+[MIT License](http://revathskumar.mit-license.org/)
