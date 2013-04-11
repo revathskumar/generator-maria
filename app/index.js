@@ -13,7 +13,7 @@ function MariaGenerator(args, options, config) {
   this.hookFor(this.testFramework, { as: 'app' });
 
   this.on('end', function () {
-    console.log('\nI\'m all done. Just run ' + 'npm install &; bower install'.bold.yellow + ' to install the required dependencies.');
+    console.log('\nI\'m all done. Just run ' + 'npm install & bower install'.bold.yellow + ' to install the required dependencies.');
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
