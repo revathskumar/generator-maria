@@ -1,15 +1,18 @@
 {
   "name": "generator-maria",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A generator for Yeoman",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "MariaJS",
+    "Boilerplate",
+    "yeoman"
   ],
   "homepage": "https://github.com/revathskumar/generator-maria",
   "bugs": "https://github.com/revathskumar/generator-maria/issues",
   "author": {
     "name": "revathskumar",
-    "email": "user@example.net",
+    "email": "rsk@revathskumar.com",
     "url": "https://github.com/revathskumar"
   },
   "main": "app/index.js",
