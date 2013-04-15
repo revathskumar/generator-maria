@@ -48,7 +48,7 @@ MariaGenerator.prototype.bower = function bower() {
 };
 
 MariaGenerator.prototype.packageJSON = function packageJSON() {
-  this.template('package.json');
+  this.template('_package.json', 'package.json');
 };
 
 MariaGenerator.prototype.indexFile = function indexFile() {
