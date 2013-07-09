@@ -44,7 +44,7 @@ MariaGenerator.prototype.git = function git() {
 
 MariaGenerator.prototype.bower = function bower() {
   this.copy('bowerrc', '.bowerrc');
-  this.copy('component.json', 'component.json');
+  this.copy('bower.json', 'bower.json');
 };
 
 MariaGenerator.prototype.packageJSON = function packageJSON() {

@@ -31,7 +31,7 @@ describe('maria generator', function () {
       '.gitattributes',
       '.bowerrc',
       ['package.json', /"name": "temp"/],
-      ['component.json', /"name": "temp"/],
+      ['bower.json', /"name": "temp"/],
       'app/index.html',
       'app/scripts/namespace.js',
       'app/404.html',

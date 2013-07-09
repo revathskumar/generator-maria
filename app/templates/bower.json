@@ -4,7 +4,7 @@
   "dependencies": {
     "jquery": "~1.9.0",
     "modernizr": "~2.6.2",
-    "maria": "http://peter.michaux.ca/downloads/maria/current/maria.js"
+    "maria": "~1.0.0"
   },
   "devDependencies": {}
 }
