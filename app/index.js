@@ -10,10 +10,19 @@ function MariaGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
   this.testFramework = this.options['test-framework'] || 'mocha';
-  this.hookFor(this.testFramework, { as: 'app' });
+  this.hookFor(this.testFramework, {
+    as: 'app',
+    options: {
+      options: {
+        'skip-install': this.options['skip-install']
+      }
+    }
+  });
 
   this.on('end', function () {
-    console.log('\nI\'m all done. Just run ' + 'npm install & bower install'.bold.yellow + ' to install the required dependencies.');
+    if (['app', 'maria'].indexOf(this.generatorName) >= 0) {
+      this.installDependencies({ skipInstall: this.options['skip-install'] });
+    }
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
