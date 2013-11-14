@@ -16,7 +16,8 @@ function MariaGenerator(args, options, config) {
 util.inherits(MariaGenerator, yeoman.generators.NamedBase);
 
 MariaGenerator.prototype.createModelFiles = function createModelFiles() {
+  var appPath = this.config.get('appPath');
   var ext = this.options.coffee ? 'coffee' : 'js';
-  this.template('model.' + ext, path.join('app/scripts/models', this._.classify(this.name) + 'Model.' + ext));
-  this.template('collection.' + ext, path.join('app/scripts/models', this._.classify(this.name) + 'sModel.' + ext));
+  this.template('model.' + ext, path.join(appPath + '/scripts/models', this._.classify(this.name) + 'Model.' + ext));
+  this.template('collection.' + ext, path.join(appPath + '/scripts/models', this._.classify(this.name) + 'sModel.' + ext));
 };

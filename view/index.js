@@ -16,6 +16,7 @@ function MariaGenerator(args, options, config) {
 util.inherits(MariaGenerator, yeoman.generators.NamedBase);
 
 MariaGenerator.prototype.createViewFiles = function createViewFiles() {
+  var appPath = this.config.get('appPath');
   var ext = this.options.coffee ? 'coffee' : 'js';
-  this.template('view.' + ext, path.join('app/scripts/views', this._.classify(this.name) + 'View.' + ext));
+  this.template('view.' + ext, path.join(appPath + '/scripts/views', this._.classify(this.name) + 'View.' + ext));
 };
