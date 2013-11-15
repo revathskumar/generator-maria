@@ -2,17 +2,16 @@
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
-var mariaBase = require('../maria-base');
 
 var MariaGenerator = module.exports = function MariaGenerator() {
-  mariaBase.apply(this, arguments);
+  yeoman.NamedBase.apply(this, arguments);
 
   var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 
 };
 
-util.inherits(MariaGenerator, mariaBase);
+util.inherits(MariaGenerator, yeoman.NamedBase);
 
 MariaGenerator.prototype.createControllerFiles = function createControllerFiles() {
   var appPath = this.config.get('appPath');

@@ -2,17 +2,14 @@
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
-var mariaBase = require('../maria-base');
 
-
-module.exports = MariaGenerator;
-
-function MariaGenerator(args, options, config) {
-  yeoman.generators.Base.apply(this, arguments);
+var MariaGenerator = module.exports = function MariaGenerator() {
+  yeoman.Base.apply(this, arguments);
 
   this.config.defaults({
     'appPath': 'app'
   });
+  this.appPath = 'app';
 
   this.testFramework = this.options['test-framework'] || 'mocha';
 
@@ -39,9 +36,9 @@ function MariaGenerator(args, options, config) {
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-}
+};
 
-util.inherits(MariaGenerator, mariaBase);
+util.inherits(MariaGenerator, yeoman.Base);
 
 MariaGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
@@ -72,8 +69,8 @@ MariaGenerator.prototype.askFor = function askFor() {
       checked: false
     });
   }
-  // console.log(prompts[0].choices.length);
-  if (prompts[0].choices.length > 0){
+
+  if (prompts[0].choices.length > 0) {
     this.prompt(prompts, function (answers) {
       var features = answers.features;
 
@@ -121,8 +118,8 @@ MariaGenerator.prototype.git = function git() {
 };
 
 MariaGenerator.prototype.bower = function bower() {
-  this.copy('bowerrc', '.bowerrc');
-  this.copy('bower.json', 'bower.json');
+  this.template('bowerrc', '.bowerrc');
+  this.template('_bower.json', 'bower.json');
 };
 
 MariaGenerator.prototype.packageJSON = function packageJSON() {

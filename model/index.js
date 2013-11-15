@@ -6,14 +6,14 @@ var yeoman = require('yeoman-generator');
 module.exports = MariaGenerator;
 
 function MariaGenerator(args, options, config) {
-  yeoman.generators.NamedBase.apply(this, arguments);
+  yeoman.NamedBase.apply(this, arguments);
 
   var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 
 }
 
-util.inherits(MariaGenerator, yeoman.generators.NamedBase);
+util.inherits(MariaGenerator, yeoman.NamedBase);
 
 MariaGenerator.prototype.createModelFiles = function createModelFiles() {
   var appPath = this.config.get('appPath');
