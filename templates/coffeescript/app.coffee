@@ -1,1 +1,1 @@
-<%= _.camelize(appname) %> ||= {};
+<%= _.camelize(appname) %> = {};
