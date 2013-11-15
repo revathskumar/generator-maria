@@ -131,15 +131,6 @@ MariaGenerator.prototype.packageJSON = function packageJSON() {
   this.template('_package.json', 'package.json');
 };
 
-MariaGenerator.prototype.indexFile = function indexFile() {
-  var appPath = this.config.get('appPath');
-  if (this.testFramework === 'jasmine') {
-    this.write(appPath + '/index.html', this.engine(this.read(appPath + '/index.html')).replace(/mocha/gi, 'Jasmine'));
-  } else {
-    this.copy('app/index.html', appPath + '/index.html');
-  }
-};
-
 MariaGenerator.prototype.gruntfile = function gruntfile() {
   if (this.testFramework === 'jasmine') {
     this.write('Gruntfile.js', this.engine(this.read('Gruntfile.js')).replace(/mocha/g, 'jasmine'));
@@ -158,6 +149,48 @@ MariaGenerator.prototype.mainStylesheet = function mainStylesheet() {
     '\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}'
   ];
   this.write(appPath + '/styles/main.css', contentText.join('\n'));
+};
+
+MariaGenerator.prototype.writeIndex = function writeIndex() {
+  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'app/index.html'));
+  this.indexFile = this.engine(this.indexFile, this);
+
+  var vendorJS = [
+    'bower_components/jquery/jquery.js',
+    'bower_components/maria/maria.js'
+  ];
+
+  this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
+
+  if (this.compassBootstrap) {
+    // wire Twitter Bootstrap plugins
+    this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
+      'bower_components/sass-bootstrap/js/affix.js',
+      'bower_components/sass-bootstrap/js/alert.js',
+      'bower_components/sass-bootstrap/js/dropdown.js',
+      'bower_components/sass-bootstrap/js/tooltip.js',
+      'bower_components/sass-bootstrap/js/modal.js',
+      'bower_components/sass-bootstrap/js/transition.js',
+      'bower_components/sass-bootstrap/js/button.js',
+      'bower_components/sass-bootstrap/js/popover.js',
+      'bower_components/sass-bootstrap/js/carousel.js',
+      'bower_components/sass-bootstrap/js/scrollspy.js',
+      'bower_components/sass-bootstrap/js/collapse.js',
+      'bower_components/sass-bootstrap/js/tab.js'
+    ]);
+  }
+
+  this.indexFile = this.appendFiles({
+    html: this.indexFile,
+    fileType: 'js',
+    searchPath: ['.tmp', 'app'],
+    optimizedPath: 'scripts/main.js',
+    sourceFileList: [
+      'scripts/namespace.js'
+    ]
+  });
+  var appPath = this.config.get('appPath');
+  this.write(appPath + '/index.html', this.indexFile);
 };
 
 MariaGenerator.prototype.namespaceJs = function namespaceJs() {
