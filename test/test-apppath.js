@@ -29,11 +29,12 @@ describe('maria generator', function () {
     it('in path specified by --appPath', function (done) {
       var expected = [
         // add files you expect to exist here.
+        ['Gruntfile.js',/app: 'public'/],
         '.jshintrc',
         '.editorconfig',
         '.gitignore',
         '.gitattributes',
-        '.bowerrc',
+        ['.bowerrc', /public\/bower_components/],
         ['package.json', /"name": "temp"/],
         ['bower.json', /"name": "temp"/],
         'public/index.html',

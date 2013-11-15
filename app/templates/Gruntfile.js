@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 
   // configurable paths
   var yeomanConfig = {
-    app: 'app',
+    app: '<%= appPath %>',
     dist: 'dist'
   };
 
@@ -30,11 +30,11 @@ module.exports = function (grunt) {
       coffeeTest: {
         files: ['test/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
-      },
+      },<% if (compassBootstrap) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass']
-      },
+      },<% } %>
       livereload: {
         files: [
           '<%%= yeoman.app %>/*.html',
@@ -57,7 +57,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'app')
+              mountFolder(connect, '<%= appPath %>')
             ];
           }
         }
@@ -130,7 +130,7 @@ module.exports = function (grunt) {
           dest: 'test/spec'
         }]
       }
-    },
+    },<% if (compassBootstrap) { %>
     compass: {
       options: {
         sassDir: '<%%= yeoman.app %>/styles',
@@ -138,7 +138,7 @@ module.exports = function (grunt) {
         imagesDir: '<%%= yeoman.app %>/images',
         javascriptsDir: '<%%= yeoman.app %>/scripts',
         fontsDir: '<%%= yeoman.app %>/styles/fonts',
-        importPath: 'app/components',
+        importPath: '<%%= yeoman.app %>/bower_components',
         relativeAssets: true
       },
       dist: {},
@@ -147,7 +147,7 @@ module.exports = function (grunt) {
           debugInfo: true
         }
       }
-    },
+    },<% } %>
     uglify: {
       dist: {
         files: {
@@ -221,7 +221,9 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,txt}',
             '.htaccess',
-            'images/{,*/}*.{webp,gif}'
+            'images/{,*/}*.{webp,gif}',
+            'styles/fonts/{,*/}*.*',<% if (compassBootstrap) { %>
+            'bower_components/sass-bootstrap/fonts/*.*'<% } %>
           ]
         }]
       }
@@ -242,8 +244,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'coffee:dist',
-      'compass:server',
+      'coffee:dist',<% if (compassBootstrap) { %>
+      'compass:server',<% } %>
       'livereload-start',
       'connect:livereload',
       'open',
@@ -253,16 +255,16 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    'coffee',
-    'compass',
+    'coffee',<% if (compassBootstrap) { %>
+    'compass',<% } %>
     'connect:test',
     'mocha'
   ]);
 
   grunt.registerTask('build', [
     'clean:dist',
-    'coffee',
-    'compass:dist',
+    'coffee',<% if (compassBootstrap) { %>
+    'compass:dist',<% } %>
     'useminPrepare',
     'imagemin',
     'htmlmin',

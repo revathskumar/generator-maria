@@ -129,7 +129,7 @@ MariaGenerator.prototype.packageJSON = function packageJSON() {
 MariaGenerator.prototype.indexFile = function indexFile() {
   var appPath = this.config.get('appPath');
   if (this.testFramework === 'jasmine') {
-    this.write(appPath + '/index.html', this.engine(this.read('app/index.html')).replace(/mocha/gi, 'Jasmine'));
+    this.write(appPath + '/index.html', this.engine(this.read(appPath + '/index.html')).replace(/mocha/gi, 'Jasmine'));
   } else {
     this.copy('app/index.html', appPath + '/index.html');
   }
@@ -145,7 +145,14 @@ MariaGenerator.prototype.gruntfile = function gruntfile() {
 
 MariaGenerator.prototype.mainStylesheet = function mainStylesheet() {
   var appPath = this.config.get('appPath');
-  this.write(appPath + '/styles/main.css', 'body {\n    background: #fafafa;\n}\n\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}');
+  if (this.compassBootstrap) {
+    return this.template('main.scss', appPath + '/styles/main.scss');
+  }
+  var contentText = [
+    'body {\n    background: #fafafa;\n}',
+    '\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}'
+  ];
+  this.write(appPath + '/styles/main.css', contentText.join('\n'));
 };
 
 MariaGenerator.prototype.namespaceJs = function namespaceJs() {

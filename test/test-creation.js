@@ -3,7 +3,7 @@
 
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
-
+var fs      = require('fs');
 
 describe('maria generator', function () {
   beforeEach(function (done) {
@@ -17,7 +17,12 @@ describe('maria generator', function () {
           helpers.createDummyGenerator(),
           'mocha:app'
         ]
-      ]);
+      ], ['temp'], {'skip-install': true});
+
+      helpers.mockPrompt(this.app, {
+        features: ['compassBootstrap']
+      });
+
       done();
     }.bind(this));
   });
@@ -46,57 +51,73 @@ describe('maria generator', function () {
     });
   });
 
-  it('creates expected files with --coffee', function (done) {
-    this.app.options.coffee = true;
-    this.app.run({}, function () {
-      helpers.assertFiles([
-        'app/scripts/namespace.coffee'
-      ]);
-      done();
+  // it('creates expected files with --coffee', function (done) {
+  //   this.app.options.coffee = true;
+  //   this.app.run({}, function () {
+  //     helpers.assertFiles([
+  //       'app/scripts/namespace.coffee'
+  //     ]);
+  //     done();
+  //   });
+  // });
+
+  describe('sub generators', function (){
+    beforeEach(function (done) {
+      var out = [
+        '{',
+        '  "generator-maria": {',
+        '    "coffee": false,',
+        '    "compassBootstrap": true,',
+        '    "appPath": "app",',
+        '    "testFramework": "mocha"',
+        '  }',
+        '}'
+      ];
+      fs.writeFile('.yo-rc.json', out.join('\n'), done);
     });
-  });
 
-  it('creates maria controller', function (done) {
-    var controller = helpers.createGenerator('maria:controller', [
-      '../../controller'
-    ], ['Foo']);
+    it('creates maria controller', function (done) {
+      var controller = helpers.createGenerator('maria:controller', [
+        '../../controller'
+      ], ['Foo']);
 
-    controller.run({}, function () {
-      helpers.assertFiles([
-        ['app/scripts/controllers/FooController.js',
-          /maria\.Controller\.subclass\(temp, \'FooController\'/]
-      ]);
-      done();
+      controller.run({}, function () {
+        helpers.assertFiles([
+          ['app/scripts/controllers/FooController.js',
+            /maria\.Controller\.subclass\(temp, \'FooController\'/]
+        ]);
+        done();
+      });
     });
-  });
 
-  it('creates maria model', function (done) {
-    var model = helpers.createGenerator('maria:model', [
-      '../../model'
-    ], ['Foo']);
+    it('creates maria model', function (done) {
+      var model = helpers.createGenerator('maria:model', [
+        '../../model'
+      ], ['Foo']);
 
-    model.run({}, function () {
-      helpers.assertFiles([
-        ['app/scripts/models/FooModel.js',
-          /maria\.Model\.subclass\(temp, \'FooModel\'/],
-        ['app/scripts/models/FoosModel.js',
-          /maria\.setModel\.subclass\(temp, \'FoosModel\'/]
-      ]);
-      done();
+      model.run({}, function () {
+        helpers.assertFiles([
+          ['app/scripts/models/FooModel.js',
+            /maria\.Model\.subclass\(temp, \'FooModel\'/],
+          ['app/scripts/models/FoosModel.js',
+            /maria\.setModel\.subclass\(temp, \'FoosModel\'/]
+        ]);
+        done();
+      });
     });
-  });
 
-  it('creates maria view', function (done) {
-    var view = helpers.createGenerator('maria:view', [
-      '../../view'
-    ], ['Foo']);
+    it('creates maria view', function (done) {
+      var view = helpers.createGenerator('maria:view', [
+        '../../view'
+      ], ['Foo']);
 
-    view.run({}, function () {
-      helpers.assertFiles([
-        ['app/scripts/views/FooView.js',
-          /maria\.ElementView\.subclass\(temp, \'FooView\'/]
-      ]);
-      done();
+      view.run({}, function () {
+        helpers.assertFiles([
+          ['app/scripts/views/FooView.js',
+            /maria\.ElementView\.subclass\(temp, \'FooView\'/]
+        ]);
+        done();
+      });
     });
   });
 });
