@@ -92,6 +92,11 @@ MariaGenerator.prototype.askFor = function askFor() {
 
       cb();
     }.bind(this));
+  } else {
+    this.compassBootstrap = this.options.bootstrap;
+    this.config.set('coffee', this.options.coffee);
+    this.config.set('compassBootstrap', this.options.bootstrap);
+    cb();
   }
 };
 
