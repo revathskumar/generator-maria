@@ -63,7 +63,6 @@ describe('maria generator default', function () {
 
   describe('sub generators', function () {
     beforeEach(function (done) {
-      helpers.before('test');
       var out = [
         '{',
         '  "generator-maria": {',
@@ -74,8 +73,8 @@ describe('maria generator default', function () {
         '  }',
         '}'
       ];
-      fs.writeFile('.yo-rc.json', out.join('\n'));
-      fs.mkdir('app');
+      fs.writeFileSync('.yo-rc.json', out.join('\n'));
+      fs.mkdirSync('app');
       out = [
         '<html>',
         '  <body>',
@@ -86,7 +85,8 @@ describe('maria generator default', function () {
         '  </body>',
         '<html>'
       ];
-      fs.writeFile('app/index.html', out.join('\n'), done);
+      fs.writeFileSync('app/index.html', out.join('\n'));
+      done();
     });
 
     it('creates maria controller', function (done) {

@@ -51,9 +51,8 @@ describe('maria generator with coffee', function () {
     });
   });
 
-  describe('sub generators', function (){
+  describe('sub generators', function () {
     beforeEach(function (done) {
-      helpers.before('test');
       var out = [
         '{',
         '  "generator-maria": {',
@@ -64,7 +63,8 @@ describe('maria generator with coffee', function () {
         '  }',
         '}'
       ];
-      fs.writeFile('.yo-rc.json', out.join('\n'), done);
+      fs.writeFileSync('.yo-rc.json', out.join('\n'));
+      done();
     });
 
     it('creates maria controller', function (done) {

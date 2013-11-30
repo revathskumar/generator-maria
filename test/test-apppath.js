@@ -64,7 +64,8 @@ describe('maria generator with appPath option', function () {
         '  }',
         '}'
       ];
-      fs.writeFile('.yo-rc.json', out.join('\n'), done);
+      fs.writeFileSync('.yo-rc.json', out.join('\n'));
+      done();
     });
 
     it('controller', function (done) {
