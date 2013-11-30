@@ -24,7 +24,7 @@
     "test": "mocha test/test-*.js"
   },
   "dependencies": {
-    "yeoman-generator": "~0.14.0-rc.2"
+    "yeoman-generator": "~0.14.0"
   },
   "peerDependencies": {
     "generator-mocha": "~0.1.1"
