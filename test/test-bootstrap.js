@@ -5,7 +5,7 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
 
-describe('maria generator', function () {
+describe('maria generator with bootstrap option', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
