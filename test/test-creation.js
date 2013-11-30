@@ -61,8 +61,9 @@ describe('maria generator', function () {
   //   });
   // });
 
-  describe('sub generators', function (){
+  describe('sub generators', function () {
     beforeEach(function (done) {
+      helpers.before('test');
       var out = [
         '{',
         '  "generator-maria": {',
@@ -73,7 +74,19 @@ describe('maria generator', function () {
         '  }',
         '}'
       ];
-      fs.writeFile('.yo-rc.json', out.join('\n'), done);
+      fs.writeFile('.yo-rc.json', out.join('\n'));
+      fs.mkdir('app');
+      out = [
+        '<html>',
+        '  <body>',
+        '',
+        '<!-- build:js({.tmp,app}) scripts/main.js -->',
+        '<script src="scripts/namespace.js"></script>',
+        '<!-- endbuild -->',
+        '  </body>',
+        '<html>'
+      ];
+      fs.writeFile('app/index.html', out.join('\n'), done);
     });
 
     it('creates maria controller', function (done) {
@@ -84,7 +97,9 @@ describe('maria generator', function () {
       controller.run({}, function () {
         helpers.assertFiles([
           ['app/scripts/controllers/FooController.js',
-            /maria\.Controller\.subclass\(temp, \'FooController\'/]
+            /maria\.Controller\.subclass\(temp, \'FooController\'/],
+          ['app/index.html',
+            /<script src="scripts\/controllers\/FooController\.js"><\/script>/]
         ]);
         done();
       });
@@ -100,7 +115,11 @@ describe('maria generator', function () {
           ['app/scripts/models/FooModel.js',
             /maria\.Model\.subclass\(temp, \'FooModel\'/],
           ['app/scripts/models/FoosModel.js',
-            /maria\.setModel\.subclass\(temp, \'FoosModel\'/]
+            /maria\.setModel\.subclass\(temp, \'FoosModel\'/],
+          ['app/index.html',
+            /<script src="scripts\/models\/FooModel\.js"><\/script>/],
+          ['app/index.html',
+            /<script src="scripts\/models\/FoosModel\.js"><\/script>/]
         ]);
         done();
       });
@@ -114,7 +133,9 @@ describe('maria generator', function () {
       view.run({}, function () {
         helpers.assertFiles([
           ['app/scripts/views/FooView.js',
-            /maria\.ElementView\.subclass\(temp, \'FooView\'/]
+            /maria\.ElementView\.subclass\(temp, \'FooView\'/],
+          ['app/index.html',
+            /<script src="scripts\/views\/FooView\.js"><\/script>/],
         ]);
         done();
       });

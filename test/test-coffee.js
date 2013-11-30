@@ -53,6 +53,7 @@ describe('maria generator', function () {
 
   describe('sub generators', function (){
     beforeEach(function (done) {
+      helpers.before('test');
       var out = [
         '{',
         '  "generator-maria": {',

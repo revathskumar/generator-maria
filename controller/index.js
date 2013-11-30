@@ -1,20 +1,20 @@
 'use strict';
 var util = require('util');
 var path = require('path');
-var yeoman = require('yeoman-generator');
+var mariaBase = require('../maria-base');
 
 var MariaGenerator = module.exports = function MariaGenerator() {
-  yeoman.NamedBase.apply(this, arguments);
-
-  var dirPath = this.config.get('coffee') ? '../templates/coffeescript/' : '../templates';
-  this.sourceRoot(path.join(__dirname, dirPath));
+  mariaBase.apply(this, arguments);
 
 };
 
-util.inherits(MariaGenerator, yeoman.NamedBase);
+util.inherits(MariaGenerator, mariaBase);
 
 MariaGenerator.prototype.createControllerFiles = function createControllerFiles() {
   var appPath = this.config.get('appPath');
-  var ext = this.config.get('coffee') ? 'coffee' : 'js';
-  this.template('controller.' + ext, path.join(appPath + '/scripts/controllers', this._.classify(this.name) + 'Controller.' + ext));
+  var controllerName = this._.classify(this.name) + 'Controller';
+  this.template('controller' + this.scriptSuffix, path.join(appPath + '/scripts/controllers',
+    controllerName  + this.scriptSuffix));
+
+  this.addScriptToIndex('controllers/' + controllerName);
 };

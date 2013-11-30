@@ -1,23 +1,25 @@
 'use strict';
 var util = require('util');
 var path = require('path');
-var yeoman = require('yeoman-generator');
+var mariaBase = require('../maria-base');
 
 module.exports = MariaGenerator;
 
 function MariaGenerator(args, options, config) {
-  yeoman.NamedBase.apply(this, arguments);
-
-  var dirPath = this.config.get('coffee') ? '../templates/coffeescript/' : '../templates';
-  this.sourceRoot(path.join(__dirname, dirPath));
+  mariaBase.apply(this, arguments);
 
 }
 
-util.inherits(MariaGenerator, yeoman.NamedBase);
+util.inherits(MariaGenerator, mariaBase);
 
 MariaGenerator.prototype.createModelFiles = function createModelFiles() {
   var appPath = this.config.get('appPath');
-  var ext = this.config.get('coffee') ? 'coffee' : 'js';
-  this.template('model.' + ext, path.join(appPath + '/scripts/models', this._.classify(this.name) + 'Model.' + ext));
-  this.template('collection.' + ext, path.join(appPath + '/scripts/models', this._.classify(this.name) + 'sModel.' + ext));
+  var name = this._.classify(this.name);
+  this.template('model' + this.scriptSuffix, path.join(appPath + '/scripts/models',
+    name + 'Model' + this.scriptSuffix));
+  this.template('collection' + this.scriptSuffix, path.join(appPath + '/scripts/models',
+    name + 'sModel' + this.scriptSuffix));
+
+  this.addScriptToIndex('models/' + name + 'Model');
+  this.addScriptToIndex('models/' + name + 'sModel');
 };
